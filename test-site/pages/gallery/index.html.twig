@@ -1,0 +1,27 @@
+---
+title: "Gallery"
+images: 
+    - src: "gallery/capybara.webp"
+      alt: "Good Capybara"
+      width: 300
+      height: 200
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>Hello World from Twig</h1>
+    {% for image in images %}
+        <div>
+            <img src="{{ asset(image.src) }}" alt="{{ image.alt }}" width="{{ image.width }}" height="{{ image.height }}">
+            <p>{{ image.alt }}</p>
+        </div>
+    {% endfor %}
+    <p>This is a simple HTML page rendered using Twig.</p>
+    <a href="/">Back to Home</a>
+</body>
+</html>
