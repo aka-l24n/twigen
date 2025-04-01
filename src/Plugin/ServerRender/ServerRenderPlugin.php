@@ -53,6 +53,13 @@ class ServerRenderPlugin
 
         $this->eventDispatcher->addListener('page.discover', function (PageDiscoverEvent $event): void {
             $file = $event->getFile();
+            
+
+            $extension = $file->getExtension();
+            if ($extension !== 'html' && $extension !== 'twig') {
+                return; // Skip non-HTML/Twig files
+            }
+
             $frontMatter = new FrontMatter($file->getRealPath());
 
             $filename = (new UnicodeString($file->getFilename()))

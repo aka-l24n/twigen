@@ -4,6 +4,7 @@ namespace l24n\Twigen;
 
 use Composer\InstalledVersions;
 use l24n\Twigen\Plugin\ServerRender\Controller;
+use l24n\Twigen\Plugin\AssetMapper\AssetMapperPlugin;
 use l24n\Twigen\Plugin\ServerRender\ServerRenderPlugin;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -17,7 +18,8 @@ class Application extends ContainerBuilder
     private bool $booted = false;
 
     protected array $plugins = [
-        ServerRenderPlugin::class
+        ServerRenderPlugin::class,
+        AssetMapperPlugin::class,
     ];
 
     public function __construct(private string $basePath, ?ParameterBagInterface $parameterBag = null)
