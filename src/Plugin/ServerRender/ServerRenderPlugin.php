@@ -8,6 +8,7 @@ use l24n\Twigen\ResponseEvent;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
@@ -99,6 +100,7 @@ class ServerRenderPlugin
     private static function registerServices(Application $application)
     {
         $application->register('context', RequestContext::class);
+        $application->register('argument_resolver', ArgumentResolver::class);
 
         $application->register('controller_resolver', ContainerControllerResolver::class)
             ->setArguments([new Reference('service_container')]);
@@ -135,5 +137,6 @@ class ServerRenderPlugin
         $application->setAlias(ContainerControllerResolver::class, 'controller_resolver');
         $application->setAlias(UrlMatcherInterface::class, 'matcher');
         $application->setAlias(Controller::class, 'front_controller');
+        $application->setAlias(ArgumentResolverInterface::class, 'argument_resolver');
     }
 }

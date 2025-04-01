@@ -3,15 +3,12 @@
 namespace l24n\Twigen;
 
 use Composer\InstalledVersions;
-use l24n\Twigen\Plugin\ServerRender\Controller;
 use l24n\Twigen\Plugin\AssetMapper\AssetMapperPlugin;
 use l24n\Twigen\Plugin\ServerRender\ServerRenderPlugin;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 
 class Application extends ContainerBuilder
 {
@@ -29,7 +26,6 @@ class Application extends ContainerBuilder
         $this->registerApplicationServices();
 
         $this->setAlias(EventDispatcher::class, 'event_dispatcher');
-        $this->setAlias(ArgumentResolverInterface::class, 'argument_resolver');
         $this->setAlias(ContainerInterface::class, 'service_container');
         $this->setAlias(self::class, 'service_container');
 
@@ -79,7 +75,6 @@ class Application extends ContainerBuilder
     private function registerApplicationServices()
     {
         $this->register('event_dispatcher', EventDispatcher::class)->setAutowired(true);
-        $this->register('argument_resolver', ArgumentResolver::class);
         
         $this->register('kernel', Kernel::class)
             ->setPublic(true)
