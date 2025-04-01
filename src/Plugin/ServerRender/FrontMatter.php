@@ -32,7 +32,7 @@ class FrontMatter
                         break;
                     }
                     
-                    $body .= trim($line);
+                    $body .= $line;
                 }
             }
 
