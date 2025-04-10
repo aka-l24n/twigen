@@ -19,6 +19,10 @@ class Application extends ContainerBuilder
         AssetMapperPlugin::class,
     ];
 
+    /**
+     * Constructor for the Application class.
+     * Initializes the application with the base path and optional parameter bag.
+     */
     public function __construct(private string $basePath, ?ParameterBagInterface $parameterBag = null)
     {
         parent::__construct($parameterBag);
@@ -32,6 +36,12 @@ class Application extends ContainerBuilder
         $this->setParameter('kernel.project_dir', $this->basePath);
     }
 
+    /**
+     * Boot the application.
+     * This method is called to initialize the application and register all plugins.
+     * 
+     * @todo: probably I should move this to a compiler pass, because it's a bit weird...
+     */
     public function boot()
     {
         if ($this->booted) {
@@ -50,21 +60,39 @@ class Application extends ContainerBuilder
         $this->booted = true;
     }
 
+    /**
+     * Get the base path of the application.
+     *
+     * @return string The base path.
+     */
     public function getBasePath(): string
     {
         return $this->basePath;
     }
 
+    /**
+     * Set the base path of the application.
+     *
+     * @param string $basePath The new base path.
+     */
     public function setBasePath(string $basePath): void
     {
         $this->basePath = $basePath;
     }
 
+    /**
+     * Get the version of the application.
+     *
+     * @return string The application version or 'unknown' if not available.
+     */
     public function getVersion(): string
     {
         return InstalledVersions::getVersion('l24n/twigen') ?: 'unknown';
     }
 
+    /**
+     * Register all plugins defined in the application.
+     */
     protected function registerPlugins(): void
     {
         foreach ($this->plugins as $plugin) {
@@ -72,6 +100,9 @@ class Application extends ContainerBuilder
         }
     }
 
+    /**
+     * Register core application services such as the event dispatcher and kernel.
+     */
     private function registerApplicationServices()
     {
         $this->register('event_dispatcher', EventDispatcher::class)->setAutowired(true);

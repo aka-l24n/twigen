@@ -32,6 +32,9 @@ class AssetMapperPlugin
             ->setAutowired(true)
             ->setPublic(true)
             ->addTag('controller.service_arguments');
+
+        $application->register('plugin.generate_command', GenerateCommand::class)
+            ->addTag('console.command');
     }
 
     public function boot()

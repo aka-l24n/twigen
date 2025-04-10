@@ -1,0 +1,18 @@
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use l24n\Twigen\Application;
+use Symfony\Component\Console\Application as Console;
+use Symfony\Component\Console\DependencyInjection\AddConsoleCommandPass;
+
+$app = new Application(dirname(__DIR__) . '/demo');
+
+$app->addCompilerPass(new AddConsoleCommandPass());
+$app->boot();
+
+$console = new Console();
+$loader = $app->get('console.command_loader');
+
+$console->setCommandLoader($loader);
+$console->run();
