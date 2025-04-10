@@ -130,6 +130,10 @@ class ServerRenderPlugin
         $application->register('twig', \Twig\Environment::class)
             ->setPublic(true)
             ->setArgument('$loader', new Reference('twig.loader'));
+
+        $application->register('plugin.serve_command', ServeCommand::class)
+            ->setPublic(true)
+            ->addTag('console.command');
     }
 
     private static function setAliases(Application $application)
